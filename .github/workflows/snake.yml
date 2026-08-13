@@ -1,4 +1,8 @@
 name: Generate Contribution Snake
+permissions:
+  contents: write
+  pages: write
+  id-token: write
 on:
   schedule:
     - cron: '0 */12 * * *'
@@ -23,6 +27,7 @@ jobs:
         with:
           target_branch: output
           build_dir: dist
+          # prefer using a personal token when GITHUB_TOKEN actor lacks push permissions
+          personal_token: ${{ secrets.GH_PERSONAL_TOKEN }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GH_PERSONAL_TOKEN: ${{ secrets.GH_PERSONAL_TOKEN }}
